@@ -12,6 +12,7 @@ extends CharacterBody2D
 var is_moving: bool = false
 var target_position: Vector2 = Vector2.ZERO
 var current_direction: Vector2 = Vector2.ZERO
+var queued_direction: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
@@ -20,27 +21,43 @@ func _ready() -> void:
 	target_position = position
 
 func _physics_process(delta: float) -> void:
+	get_input()
+	
+	
 	if is_moving:
 		position = position.move_toward(target_position, move_speed*tile_size*delta)
 		#kan updatera animation här:
+		
 		
 		#check if we reached targeted tile.
 		if position.distance_to(target_position) < 0.1:
 			position = target_position
 			is_moving = false
-		#kan stoppa animation här:
-	else:	
-		handle_input()
+			#kan stoppa animation här
+	#initiate new movement when not moving
+	if not is_moving:
+		# check if a queued direction 
+		if queued_direction != Vector2.ZERO:
+			current_direction = queued_direction
+			queued_direction = Vector2.ZERO
+		#check if all movement keys have been released
+		elif not is_action_held():
+			current_direction = Vector2.ZERO
+		#if we have no direction, check current input
+		elif current_direction == Vector2.ZERO:
+			current_direction = get_held_direction()
+		#start moving if we have a new direction
+		if current_direction != Vector2.ZERO:
+			move_to_tile(current_direction)
+
+		
 	
 	
-	
-	
-	
-	
+
 	
 #-------------- Hjälpfunktioner	--------------------
 	
-func handle_input() -> void:
+func get_input() -> void:
 	#problem med att göra det möjligt att byta riktning medan man går
 	#funkar att göra med höger och vänster men inte med up och ner
 	#har testat att byta namnen på inputsen och det funkar icke
@@ -48,26 +65,15 @@ func handle_input() -> void:
 	#1. Check newly pressed actions
 	if Input.is_action_just_pressed("down"):
 		current_direction = Vector2(0,1)
-		print("down")
+		
 	elif Input.is_action_just_pressed("up"):
 		current_direction = Vector2(0,-1)
-		print("up")
+		
 	elif Input.is_action_just_pressed("right"):
 		current_direction = Vector2(1,0)
-		print("right")
+		
 	elif Input.is_action_just_pressed("left"):
 		current_direction = Vector2(-1,0)
-		print("left")
-	else:
-			current_direction = get_held_direction()
-			print("worked")
-		
-			
-		
-	
-		
-	if current_direction != Vector2.ZERO:
-		move_to_tile(current_direction)
 		
 		
 func is_action_held()->bool:
@@ -93,7 +99,8 @@ func move_to_tile(direction: Vector2)->void:
 	
 	if ray_cast.is_colliding() != true:
 		target_position = position + (direction*tile_size)
-		is_moving = true	
+		is_moving = true
+		
 	else:
 		#stop movement
 		current_direction = Vector2.ZERO
