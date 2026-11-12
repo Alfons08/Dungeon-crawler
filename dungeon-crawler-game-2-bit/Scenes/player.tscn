@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://cai37h30ylth4"]
 
-[ext_resource type="Script" uid="uid://dgk0u032dnhoy" path="res://Scenes/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://dgk0u032dnhoy" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://ysy8iu63s8xa" path="res://Resources/urizen_onebit_tileset__v2d0.png" id="1_v0iea"]
+[ext_resource type="Script" uid="uid://c7ob4hoir52qv" path="res://Scripts/AttackingState.gd" id="3_6t5aa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjs7a"]
 size = Vector2(12, 12)
@@ -94,3 +95,8 @@ target_position = Vector2(0, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1190983530]
 zoom = Vector2(5, 5)
+
+[node name="PlayerStateMachine" type="Node2D" parent="." unique_id=1754557574]
+script = ExtResource("3_6t5aa")
+
+[node name="Inventory" type="Node" parent="." unique_id=960374778]

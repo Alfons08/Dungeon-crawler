@@ -41,7 +41,7 @@ func _physics_process(delta: float) -> void:
 			current_direction = queued_direction
 			queued_direction = Vector2.ZERO
 		#check if all movement keys have been released
-		elif not is_action_held():
+		elif not is_direction_held(current_direction):
 			current_direction = Vector2.ZERO
 		#if we have no direction, check current input
 		elif current_direction == Vector2.ZERO:
@@ -62,32 +62,50 @@ func get_input() -> void:
 	#funkar att göra med höger och vänster men inte med up och ner
 	#har testat att byta namnen på inputsen och det funkar icke
 	
+	#Nu har jag fixat problemet men det är fortfarande
+	#lite skumt med movement
+	
 	#1. Check newly pressed actions
+	
+	var new_direction = Vector2.ZERO
+	
 	if Input.is_action_just_pressed("down"):
-		current_direction = Vector2(0,1)
-		
+		new_direction = Vector2(0, 1)
+
 	elif Input.is_action_just_pressed("up"):
-		current_direction = Vector2(0,-1)
-		
+		new_direction = Vector2(0, -1)
+
 	elif Input.is_action_just_pressed("right"):
-		current_direction = Vector2(1,0)
-		
+		new_direction = Vector2(1, 0)
+
 	elif Input.is_action_just_pressed("left"):
-		current_direction = Vector2(-1,0)
+		new_direction = Vector2(-1, 0)
+
+	if new_direction != Vector2.ZERO:
+		queued_direction = new_direction
+	
 		
-		
-func is_action_held()->bool:
-	if Input.is_action_pressed("down"): return true	
-	if Input.is_action_pressed("up"): return true
-	if Input.is_action_pressed("right"): return true
-	if Input.is_action_pressed("left"): return true
+func is_direction_held(direction: Vector2) -> bool:
+	
+	if direction == Vector2.RIGHT:
+		return Input.is_action_pressed("right")
+	if direction == Vector2.LEFT:
+		return Input.is_action_pressed("left")
+	if direction == Vector2.UP:
+		return Input.is_action_pressed("up")
+	if direction == Vector2.DOWN:
+		return Input.is_action_pressed("down")
 	return false
 
 func get_held_direction()->Vector2:
-	if Input.is_action_pressed("right"): return Vector2(1, 0)
-	if Input.is_action_pressed("left"): return Vector2(-1, 0)
-	if Input.is_action_pressed("down"): return Vector2(0, 1)
-	if Input.is_action_pressed("up"): return Vector2(0, -1)
+	if Input.is_action_pressed("right"): 
+		return Vector2(1, 0)
+	if Input.is_action_pressed("left"): 
+		return Vector2(-1, 0)
+	if Input.is_action_pressed("down"): 
+		return Vector2(0, 1)
+	if Input.is_action_pressed("up"): 
+		return Vector2(0, -1)
 	return Vector2.ZERO
 
 
@@ -104,3 +122,6 @@ func move_to_tile(direction: Vector2)->void:
 	else:
 		#stop movement
 		current_direction = Vector2.ZERO
+
+
+#--------------States----------------------

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Dungeon Crawler Game 2 bit"
-run/main_scene="uid://cl1r3nko5kh4v"
+run/main_scene="uid://hc7p5a8wh8yx"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 

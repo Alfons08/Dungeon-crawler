@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://cl1r3nko5kh4v"]
 
 [ext_resource type="Texture2D" uid="uid://ysy8iu63s8xa" path="res://Resources/urizen_onebit_tileset__v2d0.png" id="1_f1n8c"]
-[ext_resource type="PackedScene" uid="uid://cai37h30ylth4" path="res://Scenes/player.tscn" id="2_7x7pb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f1n8c"]
 texture = ExtResource("1_f1n8c")
@@ -10392,7 +10391,3 @@ tile_map_data = PackedByteArray("AAAAAAEAAgABAAIAAAABAAEAAgAEAAUAAAACAAEAAgAGAAU
 tile_set = SubResource("TileSet_tyfcb")
 rendering_quadrant_size = 12
 physics_quadrant_size = 12
-
-[node name="Player" parent="." unique_id=710603248 instance=ExtResource("2_7x7pb")]
-position = Vector2(24, 0)
-motion_mode = 1
