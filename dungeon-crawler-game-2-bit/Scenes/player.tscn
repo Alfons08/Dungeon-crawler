@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dgk0u032dnhoy" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://ysy8iu63s8xa" path="res://Resources/urizen_onebit_tileset__v2d0.png" id="1_v0iea"]
-[ext_resource type="Script" uid="uid://c7ob4hoir52qv" path="res://Scripts/AttackingState.gd" id="3_6t5aa"]
+[ext_resource type="Script" uid="uid://cnijhf3nt5d20" path="res://Scripts/player_state_machine.gd" id="3_3smsa"]
+[ext_resource type="Script" uid="uid://c7ob4hoir52qv" path="res://Scripts/attackingstate.gd" id="3_6t5aa"]
+[ext_resource type="Script" uid="uid://cpb804dv7s2jx" path="res://Scripts/idlestate.gd" id="3_x3wgy"]
+[ext_resource type="Script" uid="uid://bxo2qas4dsujo" path="res://Scripts/movingstate.gd" id="4_3smsa"]
+[ext_resource type="Script" uid="uid://bol6l617xeycs" path="res://Scripts/targetingState.gd" id="6_8erm5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjs7a"]
 size = Vector2(12, 12)
@@ -79,6 +83,8 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=710603248]
 collision_layer = 2
 script = ExtResource("1_cvnsp")
+tile_size = null
+move_speed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=699870551]
 position = Vector2(6, 6)
@@ -97,6 +103,18 @@ target_position = Vector2(0, 0)
 zoom = Vector2(5, 5)
 
 [node name="PlayerStateMachine" type="Node2D" parent="." unique_id=1754557574]
+script = ExtResource("3_3smsa")
+
+[node name="IdleState" type="Node2D" parent="PlayerStateMachine" unique_id=694599010]
+script = ExtResource("3_x3wgy")
+
+[node name="MovingState" type="Node2D" parent="PlayerStateMachine" unique_id=1083083817]
+script = ExtResource("4_3smsa")
+
+[node name="AttackingState" type="Node2D" parent="PlayerStateMachine" unique_id=1771649923]
 script = ExtResource("3_6t5aa")
+
+[node name="TargetingState" type="Node2D" parent="PlayerStateMachine" unique_id=339775610]
+script = ExtResource("6_8erm5")
 
 [node name="Inventory" type="Node" parent="." unique_id=960374778]
