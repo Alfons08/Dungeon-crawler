@@ -13,12 +13,14 @@ var queued_direction: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	#sätt spelaren på kanten av en ruta
 	position = position.snapped(Vector2(tile_size, tile_size))
 	target_position = position
 
-
+	
 func get_just_pressed_direction() -> Vector2:
-
+	#funktion som kikar ifall en ny riktning har angivits
+	#ger en queued direction
 	if Input.is_action_just_pressed("down"):
 		return Vector2.DOWN
 	elif Input.is_action_just_pressed("up"):
@@ -32,7 +34,7 @@ func get_just_pressed_direction() -> Vector2:
 
 
 func get_held_direction() -> Vector2:
-
+	
 	if Input.is_action_pressed("right"):
 		return Vector2.RIGHT
 	elif Input.is_action_pressed("left"):
@@ -59,10 +61,10 @@ func can_move_in(direction: Vector2) -> bool:
 	ray_cast.force_raycast_update()
 	if ray_cast.is_colliding():
 		return false		
-	elif not ray_cast.is_colliding():
-		return true
 	else:
-		push_error("neither colliding nor colliding't")
+		return true
+	
+		
 
 func start_move(direction: Vector2) -> void:
 
