@@ -25,7 +25,7 @@ func _ready() -> void:
 			state.state_machine = self
 
 	# Start in Idle
-	transition_to("Idle")
+	transition_to("IdleState")
 
 
 func _physics_process(delta: float) -> void:

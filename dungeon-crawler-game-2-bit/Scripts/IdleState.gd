@@ -19,7 +19,7 @@ func physics_update(_delta: float) -> void:
 		player.start_move(direction)
 
 		# Change state
-		state_machine.transition_to("Moving")
+		state_machine.transition_to("MovingState")
 
 
 func exit() -> void:

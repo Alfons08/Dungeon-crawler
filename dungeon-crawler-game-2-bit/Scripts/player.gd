@@ -3,6 +3,7 @@ class_name Player
 
 @export var tile_size: int = 12
 @export var move_speed: float = 8.0
+@export var turn_manager: TurnManager
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast: RayCast2D = $RayCast2D
@@ -16,7 +17,18 @@ func _ready() -> void:
 	#sätt spelaren på kanten av en ruta
 	position = position.snapped(Vector2(tile_size, tile_size))
 	target_position = position
-
+	turn_manager.player_turn_started.connect(_on_player_turn_started)
+	
+	
+	
+	
+func _on_player_turn_started()->void:
+	print("It's the players turn")
+	
+	
+	
+	
+	
 	
 func get_just_pressed_direction() -> Vector2:
 	#funktion som kikar ifall en ny riktning har angivits

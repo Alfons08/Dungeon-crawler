@@ -13,6 +13,9 @@ Bara att först detta med classes
 """
 
 func physics_update(delta: float) -> void:
+	
+	#updateras av StateMachine
+	
 
 	# 1. Check if player pressed a new direction
 	var new_direction = player.get_just_pressed_direction()
@@ -51,7 +54,7 @@ func physics_update(delta: float) -> void:
 
 		# 6. Otherwise, stop and return to Idle
 		player.current_direction = Vector2.ZERO
-		state_machine.transition_to("Idle")
+		state_machine.transition_to("IdleState")
 
 
 func exit() -> void:
