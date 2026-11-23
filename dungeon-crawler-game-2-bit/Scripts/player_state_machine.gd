@@ -15,11 +15,12 @@ var current_state: PlayerState = null
 
 func _ready() -> void:
 
-	# Give every state access to the player and state machine
+	
 	
 	for child in get_children():
+		
 		var state = child as PlayerState
-
+		#ger varje child en referens till spelaren och till statemachine
 		if state:
 			state.player = player
 			state.state_machine = self
@@ -30,6 +31,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	#physics process för "staten"
+	
 	if current_state:
 		current_state.physics_update(delta)
 

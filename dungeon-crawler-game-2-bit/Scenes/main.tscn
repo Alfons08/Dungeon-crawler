@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cl1r3nko5kh4v" path="res://Scenes/Levels/level.tscn" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://cai37h30ylth4" path="res://Scenes/player.tscn" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://d3bi5r04epr0h" path="res://Scripts/turn_manager.gd" id="2_jjvhh"]
+[ext_resource type="Script" uid="uid://c0vofxmcl52de" path="res://Scenes/game_manager.gd" id="2_kry3j"]
 
 [node name="Main" type="Node2D" unique_id=316402161]
 
@@ -12,13 +13,13 @@
 
 [node name="Level" parent="WorldHolder" unique_id=989967779 instance=ExtResource("1_bo1nx")]
 
-[node name="GameSystems" type="Node2D" parent="." unique_id=1059144872]
+[node name="GameManager" type="Node" parent="." unique_id=968710616]
+script = ExtResource("2_kry3j")
 
-[node name="TurnManager" type="Node" parent="GameSystems" unique_id=1701453239]
+[node name="TurnManager" type="Node" parent="GameManager" unique_id=1701453239]
 script = ExtResource("2_jjvhh")
 
-[node name="Player" parent="." unique_id=710603248 node_paths=PackedStringArray("turn_manager") instance=ExtResource("2_8gbba")]
+[node name="Player" parent="." unique_id=710603248 instance=ExtResource("2_8gbba")]
 position = Vector2(12, 0)
-turn_manager = NodePath("../GameSystems/TurnManager")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=41922841]

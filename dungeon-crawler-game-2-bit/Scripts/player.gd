@@ -3,8 +3,9 @@ class_name Player
 
 @export var tile_size: int = 12
 @export var move_speed: float = 8.0
-@export var turn_manager: TurnManager
 
+@onready var game_manager: GameManager = $"../GameManager"
+@onready var turn_manager: TurnManager =$"../GameSystems/TurnManager"
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast: RayCast2D = $RayCast2D
 
@@ -13,19 +14,25 @@ var current_direction: Vector2 = Vector2.ZERO
 var queued_direction: Vector2 = Vector2.ZERO
 
 
+
+
 func _ready() -> void:
 	#sätt spelaren på kanten av en ruta
 	position = position.snapped(Vector2(tile_size, tile_size))
 	target_position = position
 	turn_manager.player_turn_started.connect(_on_player_turn_started)
-	
+	turn_manager.player_turn_ended.connect(_on_player_turn_ended)
 	
 	
 	
 func _on_player_turn_started()->void:
-	print("It's the players turn")
+	print("Player turn started")
 	
+
+func _on_player_turn_ended()->void:
+	print("Player turn ended")
 	
+
 	
 	
 	

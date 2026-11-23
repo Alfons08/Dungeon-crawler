@@ -28,11 +28,26 @@ func physics_update(delta: float) -> void:
 	player.position = player.position.move_toward(player.target_position,player.move_speed * player.tile_size * delta)
 
 
+	#check if target tile reached
+	if player.position.distance_to(player.target_position) < 0.1:
+		#snap to targeted_position
+		player.position = player.target_position
+		
+		
+		player.current_direction = Vector2.ZERO
+		
+		state_machine.transition_to("IdleState")
+		
+		player.turn_manager.spend_action_point(1)
+	
+	"""
+
 	# 3. Check if target tile has been reached
 	if player.position.distance_to(player.target_position) < 0.1:
-
+		
 		player.position = player.target_position
-
+		player.turn_manager.spend_action_point(1)
+		
 		# 4. Determine the next direction
 		var next_direction = player.queued_direction
 		player.queued_direction = Vector2.ZERO
@@ -40,6 +55,7 @@ func physics_update(delta: float) -> void:
 		# If no direction is queued, continue current movement
 		if next_direction == Vector2.ZERO and player.is_action_held():
 			next_direction = player.current_direction
+			
 
 		# 5. Start the next movement if possible
 		if next_direction != Vector2.ZERO and player.can_move_in(next_direction):
@@ -55,7 +71,9 @@ func physics_update(delta: float) -> void:
 		# 6. Otherwise, stop and return to Idle
 		player.current_direction = Vector2.ZERO
 		state_machine.transition_to("IdleState")
-
+	
+	
+	"""
 
 func exit() -> void:
 	print("Exited Moving")

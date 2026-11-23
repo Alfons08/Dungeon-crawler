@@ -10,11 +10,20 @@ signal enemy_turn_started
 @export var max_action_points:int = 1
 
 var action_points:int = 0
-var is_player_turn:bool = true
+var is_player_turn:bool = false
 
-
+func _ready() -> void:
+	enemy_turn_started.connect(_on_enemy_turn_started)
+	
+	
+	call_deferred("start_player_turn")
+	
 
 func start_player_turn()->void:
+	
+	if is_player_turn:
+		return
+	
 	is_player_turn = true
 	action_points = max_action_points
 	
@@ -22,7 +31,7 @@ func start_player_turn()->void:
 	action_points_changed.emit(max_action_points)
 	
 func can_perform_action(cost:int)->bool:
-	if is_player_turn and action_points >= 1 and cost > 0:
+	if is_player_turn and action_points >= cost and cost > 0:
 		return true
 	return false
 	
@@ -47,7 +56,20 @@ func end_player_turn()->void:
 	enemy_turn_started.emit()
 	
 func finish_enemy_turn()->void:
+	
+	if is_player_turn:
+		return
+	
 	start_player_turn()
 	
 	
 	
+#-----------testkod-----------------
+
+# TEMPORARY TEST CODE
+
+func _on_enemy_turn_started() -> void:
+
+	await get_tree().create_timer(0.1).timeout
+
+	finish_enemy_turn()

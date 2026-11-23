@@ -5,10 +5,24 @@ func enter() -> void:
 
 
 func physics_update(_delta: float) -> void:
-
+	
+	
+	
+	
 	# Get player movement input
-	var direction = player.get_held_direction()
+	var direction: Vector2
 
+
+	if player.GameManager.current_mode == player.GameManager.GameMode.COMBAT:
+		#check if player can perform action
+		if not player.turn_manager.can_perform_action(1):
+				return
+		direction = player.get_just_pressed_direction()
+	else:
+		direction = player.get_held_direction()
+		
+		
+	
 	if direction == Vector2.ZERO:
 		return
 
