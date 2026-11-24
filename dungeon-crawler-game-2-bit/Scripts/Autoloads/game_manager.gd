@@ -1,6 +1,7 @@
 extends Node
 
-class_name GameManager
+
+
 
 enum GameMode {
 	EXPLORATION,

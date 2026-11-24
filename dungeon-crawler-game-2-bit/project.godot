@@ -15,10 +15,19 @@ run/main_scene="uid://hc7p5a8wh8yx"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*uid://caq6wm45ul0p"
+
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[global_group]
+
+player=""
+enemies=""
 
 [input]
 

@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://bd5fmyhdhml36"]
+
+[ext_resource type="Script" uid="uid://cvkgflfuk5d62" path="res://Scripts/EnemyScripts/enemy.gd" id="1_1f0kj"]
+[ext_resource type="Texture2D" uid="uid://ysy8iu63s8xa" path="res://Resources/urizen_onebit_tileset__v2d0.png" id="1_hghv2"]
+[ext_resource type="Script" uid="uid://cventt6y3vns4" path="res://Scripts/EnemyScripts/enemy_stats.gd" id="3_afpow"]
+[ext_resource type="Script" uid="uid://caurr3l1xgmim" path="res://Scripts/EnemyScripts/enemy_idle_state.gd" id="4_287tu"]
+[ext_resource type="Script" uid="uid://bt8rx0rxp2llo" path="res://Scripts/EnemyScripts/enemy_state_machine.gd" id="4_0830c"]
+[ext_resource type="Script" uid="uid://dh7uxfof4sw11" path="res://Scripts/EnemyScripts/enemy_patrol_state.gd" id="6_ghaa6"]
+[ext_resource type="Script" uid="uid://cnx5q0trq4o0p" path="res://Scripts/EnemyScripts/enemy_chase_state.gd" id="7_1dp5w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1f0kj"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(1353, 261, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afpow"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(1366, 261, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_287tu"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(1379, 261, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0830c"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(1392, 261, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
+atlas = ExtResource("1_hghv2")
+region = Rect2(1405, 261, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ne65n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1f0kj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afpow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_287tu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0830c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghaa6")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hghv2"]
+size = Vector2(12, 12)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=837729429 groups=["enemies"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_1f0kj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1520732014]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ne65n")
+frame_progress = 0.6777262
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1957831287]
+shape = SubResource("RectangleShape2D_hghv2")
+
+[node name="VisionRay" type="RayCast2D" parent="." unique_id=770227134]
+collision_mask = 3
+
+[node name="Stats" type="Node" parent="." unique_id=1702455691]
+script = ExtResource("3_afpow")
+
+[node name="WaitingTimer" type="Timer" parent="." unique_id=1037665980]
+one_shot = true
+
+[node name="EnemyStateMachine" type="Node" parent="." unique_id=62808422]
+script = ExtResource("4_0830c")
+
+[node name="IdleState" type="Node" parent="EnemyStateMachine" unique_id=1945457559]
+script = ExtResource("4_287tu")
+
+[node name="PatrolState" type="Node" parent="EnemyStateMachine" unique_id=27942855]
+script = ExtResource("6_ghaa6")
+
+[node name="ChaseState" type="Node" parent="EnemyStateMachine" unique_id=1460777194]
+script = ExtResource("7_1dp5w")
+
+[node name="AttackState" type="Node" parent="EnemyStateMachine" unique_id=291723765]

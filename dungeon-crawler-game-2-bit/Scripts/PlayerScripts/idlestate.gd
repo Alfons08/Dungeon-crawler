@@ -1,7 +1,7 @@
 extends PlayerState
 
 func enter() -> void:
-	print("Entered Idle")
+	pass
 
 
 func physics_update(_delta: float) -> void:
@@ -13,15 +13,15 @@ func physics_update(_delta: float) -> void:
 	var direction: Vector2
 
 
-	if player.GameManager.current_mode == player.GameManager.GameMode.COMBAT:
+	if GameManager.current_mode == GameManager.GameMode.COMBAT:
 		#check if player can perform action
 		if not player.turn_manager.can_perform_action(1):
 				return
 		direction = player.get_just_pressed_direction()
 	else:
 		direction = player.get_held_direction()
-		
-		
+	
+	
 	
 	if direction == Vector2.ZERO:
 		return
@@ -37,4 +37,4 @@ func physics_update(_delta: float) -> void:
 
 
 func exit() -> void:
-	print("Exited Idle")
+	pass

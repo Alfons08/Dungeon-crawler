@@ -1,0 +1,53 @@
+extends Node
+class_name EnemyStateMachine
+
+
+@onready var enemy: Enemy = get_parent()
+#referens till enemy
+var current_state: EnemyState = null
+
+
+
+
+
+func _ready() -> void:
+
+	
+	
+	for child in get_children():
+		
+		var state = child as EnemyState
+		#ger varje child en referens till spelaren och till statemachine
+		if state:
+			state.enemy = enemy
+			state.state_machine = self
+
+	# Start in Idle
+	transition_to("IdleState")
+
+func _physics_process(delta: float) -> void:
+	#physics process för "staten"
+	
+	if current_state:
+		current_state.physics_update(delta)
+		
+		
+
+func transition_to(state_name: String) -> void:
+
+	var next_state = get_node_or_null(state_name) as EnemyState
+
+	if next_state == null:
+		push_error("State not found: " + state_name)
+		return
+
+	if current_state == next_state:
+		return
+
+	# Lämna nuvarande "state"
+	if current_state:
+		current_state.exit()
+
+	# Aktivera nytt "state"
+	current_state = next_state
+	current_state.enter()

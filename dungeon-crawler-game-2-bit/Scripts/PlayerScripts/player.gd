@@ -4,8 +4,8 @@ class_name Player
 @export var tile_size: int = 12
 @export var move_speed: float = 8.0
 
-@onready var game_manager: GameManager = $"../GameManager"
-@onready var turn_manager: TurnManager =$"../GameSystems/TurnManager"
+
+@export var turn_manager: TurnManager 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast: RayCast2D = $RayCast2D
 
@@ -17,6 +17,7 @@ var queued_direction: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
+	add_to_group("player")
 	#sätt spelaren på kanten av en ruta
 	position = position.snapped(Vector2(tile_size, tile_size))
 	target_position = position
@@ -79,7 +80,7 @@ func can_move_in(direction: Vector2) -> bool:
 	ray_cast.target_position = direction * tile_size
 	ray_cast.force_raycast_update()
 	if ray_cast.is_colliding():
-		return false		
+		return false
 	else:
 		return true
 	
@@ -89,3 +90,5 @@ func start_move(direction: Vector2) -> void:
 
 	current_direction = direction
 	target_position = position + direction * tile_size
+	
+	

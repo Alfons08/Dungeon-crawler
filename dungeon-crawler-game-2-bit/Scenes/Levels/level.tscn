@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cl1r3nko5kh4v"]
 
 [ext_resource type="Texture2D" uid="uid://ysy8iu63s8xa" path="res://Resources/urizen_onebit_tileset__v2d0.png" id="1_f1n8c"]
+[ext_resource type="PackedScene" uid="uid://bd5fmyhdhml36" path="res://Scenes/enemy.tscn" id="2_7x7pb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f1n8c"]
 texture = ExtResource("1_f1n8c")
@@ -10391,3 +10392,8 @@ tile_map_data = PackedByteArray("AAAAAAEAAgABAAIAAAABAAEAAgAEAAUAAAACAAEAAgAGAAU
 tile_set = SubResource("TileSet_tyfcb")
 rendering_quadrant_size = 12
 physics_quadrant_size = 12
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1388817999]
+
+[node name="Enemy" parent="Enemies" unique_id=837729429 instance=ExtResource("2_7x7pb")]
+position = Vector2(30, 18)

@@ -7,10 +7,7 @@ class_name PlayerStateMachine
 #referens till "staten"
 var current_state: PlayerState = null
 
-"""
 
-
-"""
 
 
 func _ready() -> void:
