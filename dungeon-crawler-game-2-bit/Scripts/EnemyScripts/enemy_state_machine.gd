@@ -23,7 +23,7 @@ func _ready() -> void:
 			state.state_machine = self
 
 	# Start in Idle
-	transition_to("IdleState")
+	transition_to("PatrolState")
 
 func _physics_process(delta: float) -> void:
 	#physics process för "staten"
@@ -38,7 +38,7 @@ func transition_to(state_name: String) -> void:
 	var next_state = get_node_or_null(state_name) as EnemyState
 
 	if next_state == null:
-		push_error("State not found: " + state_name)
+		push_error("Enemy state not found: " + state_name)
 		return
 
 	if current_state == next_state:

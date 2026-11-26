@@ -67,6 +67,8 @@ frame_progress = 0.6777262
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1957831287]
 shape = SubResource("RectangleShape2D_hghv2")
 
+[node name="MoveRay" type="RayCast2D" parent="." unique_id=728268614]
+
 [node name="VisionRay" type="RayCast2D" parent="." unique_id=770227134]
 collision_mask = 3
 

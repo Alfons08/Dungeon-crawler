@@ -6,13 +6,71 @@ class_name Enemy
 @export var move_speed: float = 8.0
 @export var vision_range: float = 120.0
 
-
+var roam_radius: int = 5
 @onready var vision_ray: RayCast2D = $VisionRay
-	
+@onready var move_ray: RayCast2D = $MoveRay
+
+var home_position: Vector2
+var target_position: Vector2
+var is_moving:bool = false
+var previous_direction: Vector2 = Vector2.ZERO
+
+
 
 func _ready() -> void:
 	add_to_group("enemies")
+	position = position.snapped(Vector2(tile_size, tile_size))
+	
+	
+	home_position = global_position
+	target_position = global_position
 
+func can_move(direction:Vector2)->bool:
+	move_ray.target_position = direction*tile_size
+	move_ray.force_raycast_update()
+	if move_ray.is_colliding():
+		return false
+	return true
+
+func start_move(direction:Vector2)->void:
+	if is_moving or direction == Vector2.ZERO:
+		return
+	if not can_move(direction):
+		return
+	target_position = global_position + direction*tile_size
+	
+	previous_direction = direction
+	is_moving = true
+
+func update_movement(delta:float)->bool:
+	global_position = global_position.move_toward(target_position,tile_size*move_speed*delta)
+	
+	if global_position.distance_to(target_position) < 0.1:
+		global_position = target_position
+		is_moving = false
+		return true
+	return false
+		
+func get_random_direction()->Vector2:
+	var directions: Array = [Vector2.UP,Vector2.DOWN,Vector2.LEFT,Vector2.RIGHT]
+	var available_directions: Array[Vector2] 
+	
+	for direction in directions:
+		var next_position = global_position + direction*tile_size
+		#if the new direction is within range and is available add to possible
+		if next_position.distance_to(home_position) < roam_radius*tile_size:
+			if can_move(direction):
+				available_directions.append(direction)
+	#delete previous direction if it's possible
+	if available_directions.size() > 1:
+		available_directions.erase(previous_direction)
+	
+	if available_directions.is_empty():
+		return Vector2.ZERO
+	return available_directions.pick_random()
+		
+		
+			
 
 func can_see_player() -> bool:
 
@@ -23,19 +81,19 @@ func can_see_player() -> bool:
 		return false
 
 	# Check distance
-	var distance = global_position.distance_to(
+	var distance_to_enemy = global_position.distance_to(
 		player.global_position
 	)
 
-	if distance > vision_range:
+	if distance_to_enemy > vision_range:
 		return false
 
 	# Point ray towards player
-	vision_ray.target_position = vision_ray.to_local(
-		player.global_position
-	)
+	vision_ray.target_position = vision_ray.to_local(player.global_position)
 
 	vision_ray.force_raycast_update()
 
 	# Check if ray hits player
 	return vision_ray.get_collider() == player
+	
+	
