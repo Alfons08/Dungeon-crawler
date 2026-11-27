@@ -95,27 +95,28 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=710603248 groups=["player"]]
+position = Vector2(6, 6)
 collision_layer = 2
 collision_mask = 5
+motion_mode = 1
 script = ExtResource("1_cvnsp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=699870551]
-position = Vector2(6, 6)
 shape = SubResource("RectangleShape2D_kjs7a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1021097864]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_f60y1")
 animation = &"default_walk"
-centered = false
+frame = 4
+frame_progress = 0.89325535
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=277659832]
-position = Vector2(6, 6)
 target_position = Vector2(0, 0)
 collision_mask = 5
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1190983530]
-zoom = Vector2(5, 5)
+zoom = Vector2(3, 3)
 
 [node name="PlayerStateMachine" type="Node2D" parent="." unique_id=1754557574]
 script = ExtResource("3_3smsa")

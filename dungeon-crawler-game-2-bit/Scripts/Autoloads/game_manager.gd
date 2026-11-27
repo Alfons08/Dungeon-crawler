@@ -9,7 +9,7 @@ enum GameMode {
 
 
 
-var current_mode: GameMode = GameMode.COMBAT
+var current_mode: GameMode = GameMode.EXPLORATION
 
 signal game_mode_changed(new_mode)
 

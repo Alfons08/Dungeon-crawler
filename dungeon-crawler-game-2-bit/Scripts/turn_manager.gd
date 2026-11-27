@@ -70,6 +70,4 @@ func finish_enemy_turn()->void:
 
 func _on_enemy_turn_started() -> void:
 
-	await get_tree().create_timer(0.1).timeout
-
 	finish_enemy_turn()

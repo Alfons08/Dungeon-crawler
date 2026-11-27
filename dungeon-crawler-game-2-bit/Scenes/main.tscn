@@ -22,7 +22,7 @@ script = ExtResource("2_jjvhh")
 [node name="CombatManager" type="Node" parent="GameThing" unique_id=902485327]
 
 [node name="Player" parent="." unique_id=710603248 node_paths=PackedStringArray("turn_manager") instance=ExtResource("2_8gbba")]
-position = Vector2(12, 0)
+position = Vector2(23, 7)
 turn_manager = NodePath("../GameThing/TurnManager")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=41922841]

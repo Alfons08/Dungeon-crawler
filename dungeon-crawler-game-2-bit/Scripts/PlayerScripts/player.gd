@@ -19,7 +19,14 @@ var queued_direction: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	add_to_group("player")
 	#sätt spelaren på kanten av en ruta
-	position = position.snapped(Vector2(tile_size, tile_size))
+	var half_tile = Vector2(tile_size,tile_size)/2
+	#removes half a tile from the position
+	var adjusted_position = global_position-half_tile
+	#snaps to nearest tile cordinate
+	adjusted_position = adjusted_position.snapped(Vector2(tile_size,tile_size))
+	#move back to tile center
+	global_position = adjusted_position + half_tile
+	
 	target_position = position
 	turn_manager.player_turn_started.connect(_on_player_turn_started)
 	turn_manager.player_turn_ended.connect(_on_player_turn_ended)

@@ -55,8 +55,10 @@ animations = [{
 size = Vector2(12, 12)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=837729429 groups=["enemies"]]
+position = Vector2(6, 6)
 collision_layer = 4
 collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_1f0kj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1520732014]
@@ -68,8 +70,13 @@ frame_progress = 0.6777262
 shape = SubResource("RectangleShape2D_hghv2")
 
 [node name="MoveRay" type="RayCast2D" parent="." unique_id=728268614]
+target_position = Vector2(0, 0)
+collision_mask = 3
 
 [node name="VisionRay" type="RayCast2D" parent="." unique_id=770227134]
+modulate = Color(0.942074, 0.77129704, 0.16658792, 1)
+self_modulate = Color(0.91990274, 0.8198154, 1.1551381e-06, 1)
+target_position = Vector2(0, 0)
 collision_mask = 3
 
 [node name="Stats" type="Node" parent="." unique_id=1702455691]
